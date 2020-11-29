@@ -14,8 +14,6 @@ namespace SSU.Coins.Entities
 
         public string Anniversary { get; set; }
 
-        public string Monogram { get; set; }
-
         public string Description { get; set; }
 
         public int IdCountry { get; set; }

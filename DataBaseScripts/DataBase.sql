@@ -32,7 +32,6 @@ CREATE TABLE dbo.[Coin]
 	[Date] DATETIME NOT NULL,
 	Price INT NULL,
 	Anniversary NVARCHAR(50) NOT NULL,
-	Monogram NVARCHAR(50) NOT NULL,
 	[Description] NVARCHAR(500) NOT NULL,
 	IdCountry INT NOT NULL,
 	IdMaterial INT NOT NULL,
@@ -76,7 +75,7 @@ CREATE PROCEDURE [dbo].[GetCoinById]
 	@Id INT
 AS
 BEGIN
-     SELECT	Title,[Date],Price,Anniversary,Monogram,[Description],IdCountry, IdMaterial, Picture
+     SELECT	Title,[Date],Price,Anniversary,[Description],IdCountry, IdMaterial, Picture
 	 FROM Coin
      WHERE (@Id = Id )
 END
@@ -87,15 +86,14 @@ CREATE PROCEDURE [dbo].[InsertCoin]
 	@Date DATETIME,
 	@Price INT,
 	@Anniversary NVARCHAR(50),
-	@Monogram NVARCHAR(50),
 	@Description NVARCHAR(500),
 	@IdCountry INT,
 	@IdMaterial INT,
 	@Picture VARBINARY(MAX) = NULL
 AS
 BEGIN	
-	INSERT INTO Coin(Title,[Date],Price,Anniversary,Monogram,[Description],IdCountry, IdMaterial, Picture)
-	VALUES (@Title,@Date,@Price,@Anniversary,@Monogram,@Description,@IdCountry, @IdMaterial, @Picture)
+	INSERT INTO Coin(Title,[Date],Price,Anniversary,[Description],IdCountry, IdMaterial, Picture)
+	VALUES (@Title,@Date,@Price,@Anniversary,@Description,@IdCountry, @IdMaterial, @Picture)
 END
 GO
 
@@ -114,7 +112,6 @@ CREATE PROCEDURE [dbo].[UpdateCoin]
 	@Date DATETIME,
 	@Price INT,
 	@Anniversary NVARCHAR(50),
-	@Monogram NVARCHAR(50),
 	@Description NVARCHAR(500),
 	@IdCountry INT,
 	@IdMaterial INT,
@@ -122,7 +119,7 @@ CREATE PROCEDURE [dbo].[UpdateCoin]
 AS
 BEGIN
 	UPDATE Coin SET Title = @Title,[Date] = @Date, Price = @Price, Anniversary = @Anniversary,
-		Monogram= @Monogram, IdCountry = @IdCountry, IdMaterial = @IdMaterial, Picture = @Picture
+		 IdCountry = @IdCountry, IdMaterial = @IdMaterial, Picture = @Picture
 
 	FROM Coin
 	WHERE (@Id = Id)
@@ -132,7 +129,7 @@ GO
 CREATE PROCEDURE [dbo].[GetAllCoins]
 AS
 BEGIN
-     SELECT Title,[Date],Price,Anniversary,Monogram,[Description],IdCountry, IdMaterial, Picture
+     SELECT Title,[Date],Price,Anniversary,[Description],IdCountry, IdMaterial, Picture
 	 FROM Coin 
 END
 GO
