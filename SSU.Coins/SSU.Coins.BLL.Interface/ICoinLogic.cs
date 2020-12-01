@@ -13,8 +13,8 @@ namespace SSU.Coins.BLL.Interface
 
         IEnumerable<Coin> GetAll();
 
-        void RemoveById(int id);
+        void RemoveById(int id, ICollection<Error> errorList);
 
-        void Update(Coin coin);
+        void Update(Coin coin, ICollection<Error> errorList);
     }
 }

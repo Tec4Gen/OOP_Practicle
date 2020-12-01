@@ -51,6 +51,10 @@
       <Project>{58373F0E-7C7B-42A2-81BE-7713F1C43871}</Project>
       <Name>SSU.Coins.BLL.Interface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SSU.Coins.DAL.Interface\SSU.Coins.DAL.Interface.csproj">
+      <Project>{C8AD91CE-C6AA-4F15-930A-D05892D2649E}</Project>
+      <Name>SSU.Coins.DAL.Interface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SSU.Coins.Entities\SSU.Coins.Entities.csproj">
       <Project>{49330389-600C-4337-AAAE-2D3291586BF1}</Project>
       <Name>SSU.Coins.Entities</Name>

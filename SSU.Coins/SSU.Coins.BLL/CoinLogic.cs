@@ -1,4 +1,5 @@
 ﻿using SSU.Coins.BLL.Interface;
+using SSU.Coins.DAL.Interface;
 using SSU.Coins.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,24 +11,31 @@ namespace SSU.Coins.BLL
 {
     public class CoinLogic : ICoinLogic
     {
+        private ICoinDao _coinLogic;
+
+        public CoinLogic(ICoinDao coinLogic)
+        {
+            _coinLogic = coinLogic;
+        }
+
         public IEnumerable<Coin> GetAll()
         {
-            throw new NotImplementedException();
+            return _coinLogic.GetAll();
         }
 
         public Coin GetById(int id)
         {
-            throw new NotImplementedException();
+            return _coinLogic.GetById(id);
         }
 
-        public void RemoveById(int id)
+        public void RemoveById(int id, ICollection<Error> errorList)
         {
-            throw new NotImplementedException();
+            _coinLogic.RemoveById(id);
         }
 
-        public void Update(Entities.Coin coin)
+        public void Update(Coin coin, ICollection<Error> errorList)
         {
-            throw new NotImplementedException();
+            _coinLogic.Update(coin);
         }
     }
 }

@@ -1,33 +1,37 @@
 ﻿using SSU.Coins.BLL.Interface;
+using SSU.Coins.DAL.Interface;
 using SSU.Coins.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SSU.Coins.BLL
 {
     public class MaterialLogic : IMaterialLogic
     {
+        private IMaterialDao _materialLogic;
+
+        public MaterialLogic(IMaterialDao materialLogic)
+        {
+            _materialLogic = materialLogic;
+        }
+
         public IEnumerable<Material> GetAll()
         {
-            throw new NotImplementedException();
+            return _materialLogic.GetAll();
         }
 
         public Material GetById(int id)
         {
-            throw new NotImplementedException();
+            return _materialLogic.GetById(id);
         }
 
-        public void RemoveById(int id)
+        public void RemoveById(int id, ICollection<Error> errorList)
         {
-            throw new NotImplementedException();
+            _materialLogic.RemoveById(id);
         }
 
-        public void Update(Material coin)
+        public void Update(Material coin, ICollection<Error> errorList)
         {
-            throw new NotImplementedException();
+            _materialLogic.Update(coin);
         }
     }
 }
