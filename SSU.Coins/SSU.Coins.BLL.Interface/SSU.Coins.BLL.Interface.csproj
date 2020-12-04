@@ -41,9 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAuthLogic.cs" />
     <Compile Include="ICoinLogic.cs" />
     <Compile Include="ICountryLogic.cs" />
     <Compile Include="IMaterialLogic.cs" />
+    <Compile Include="IMyRoleProviderLogic.cs" />
+    <Compile Include="IRoleWebSiteLogic.cs" />
+    <Compile Include="IUserLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

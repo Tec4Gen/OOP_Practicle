@@ -31,9 +31,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=2.0.12.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.12\lib\net45\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,10 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthDao.cs" />
     <Compile Include="CoinDao.cs" />
     <Compile Include="CountryDao.cs" />
     <Compile Include="MaterialDao.cs" />
+    <Compile Include="MyRoleProviderDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoleWebSiteDao.cs" />
+    <Compile Include="UserDao.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SSU.Coins.DAL.Interface\SSU.Coins.DAL.Interface.csproj">
@@ -55,6 +63,14 @@
     <ProjectReference Include="..\SSU.Coins.Entities\SSU.Coins.Entities.csproj">
       <Project>{49330389-600C-4337-AAAE-2D3291586BF1}</Project>
       <Name>SSU.Coins.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SSU.Coins.Execption\SSU.Coins.Excecption.csproj">
+      <Project>{171FF33E-A2D4-4823-AC0A-41A7D60A35D8}</Project>
+      <Name>SSU.Coins.Excecption</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SSU.Coins.Logger\SSU.Coins.Logger.csproj">
+      <Project>{B67B821C-47E0-447D-BEA8-D506A1B6A74B}</Project>
+      <Name>SSU.Coins.Logger</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

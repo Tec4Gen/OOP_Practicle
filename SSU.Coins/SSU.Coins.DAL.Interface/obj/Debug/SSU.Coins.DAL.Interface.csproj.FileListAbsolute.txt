@@ -1,0 +1,9 @@
+D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.DAL.Interface\bin\Debug\SSU.Coins.DAL.Interface.dll
+D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.DAL.Interface\bin\Debug\SSU.Coins.DAL.Interface.pdb
+D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.DAL.Interface\bin\Debug\SSU.Coins.Entities.dll
+D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.DAL.Interface\bin\Debug\SSU.Coins.Entities.pdb
+D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.DAL.Interface\obj\Debug\SSU.Coins.DAL.Interface.csprojAssemblyReference.cache
+D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.DAL.Interface\obj\Debug\SSU.Coins.DAL.Interface.csproj.CoreCompileInputs.cache
+D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.DAL.Interface\obj\Debug\SSU.Coins.DAL.Interface.csproj.CopyComplete
+D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.DAL.Interface\obj\Debug\SSU.Coins.DAL.Interface.dll
+D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.DAL.Interface\obj\Debug\SSU.Coins.DAL.Interface.pdb

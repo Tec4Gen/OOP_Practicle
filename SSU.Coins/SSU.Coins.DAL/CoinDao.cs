@@ -1,5 +1,6 @@
 ﻿using SSU.Coins.DAL.Interface;
 using SSU.Coins.Entities;
+using SSU.Coins.Logger;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -58,6 +59,11 @@ namespace SSU.Coins.DAL
             }
         }
 
+        public IEnumerable<Coin> GetByCountry(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public Coin GetById(int id)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -96,6 +102,7 @@ namespace SSU.Coins.DAL
                             Picture = reader["Picture"] as byte[]
                         };
                     }
+                    Logs.Log.Info("Coin received");
                     return null;
                 }
                 catch (Exception)
@@ -103,6 +110,21 @@ namespace SSU.Coins.DAL
                     throw;
                 }
             }
+        }
+
+        public IEnumerable<Coin> GetByMaterial(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Coin> GetByPrice(int price)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Coin> GetByTitle(string title)
+        {
+            throw new NotImplementedException();
         }
 
         public void RemoveById(int id)
@@ -245,5 +267,7 @@ namespace SSU.Coins.DAL
                 }
             }
         }
+
+
     }
 }

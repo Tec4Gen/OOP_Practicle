@@ -1,11 +1,7 @@
 ﻿using SSU.Coins.BLL.Interface;
 using SSU.Coins.DAL.Interface;
 using SSU.Coins.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SSU.Coins.BLL
 {

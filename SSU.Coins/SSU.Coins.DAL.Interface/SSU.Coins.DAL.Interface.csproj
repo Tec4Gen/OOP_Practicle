@@ -41,9 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAuthDao.cs" />
     <Compile Include="ICoinDao.cs" />
     <Compile Include="ICountryDao.cs" />
     <Compile Include="IMaterialDao.cs" />
+    <Compile Include="IRoleWebSiteDao.cs" />
+    <Compile Include="IUserDao.cs" />
+    <Compile Include="IMyRoleProviderDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -22,6 +22,29 @@ CREATE TABLE dbo.[RoleWebSite]
 GO
 
 --///////////////////////////////////////////////
+--                  User Table
+--///////////////////////////////////////////////
+
+CREATE TABLE dbo.[User]
+	(
+	Id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+	FirstName NVARCHAR(50) NULL,
+	LastName NVARCHAR(50) NULL,
+	MiddleName NVARCHAR(50) NULL,
+	[Login] NVARCHAR(50) UNIQUE NOT NULL,
+	[HashPassword] VARBINARY(MAX) NOT NULL,
+	RoleWebSite INT NULL DEFAULT 1,
+	Avatar NVARCHAR(MAX) NULL
+	)
+GO
+ALTER TABLE [User]
+	ADD CONSTRAINT FK_User_RoleWebSite_Id FOREIGN KEY (RoleWebSite)
+		REFERENCES [RoleWebSite](Id)
+	ON UPDATE CASCADE
+	ON DELETE SET NULL
+GO
+
+--///////////////////////////////////////////////
 --                  Coins Table
 --///////////////////////////////////////////////
 
@@ -65,7 +88,134 @@ ALTER TABLE Coin
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
 GO
+--///////////////////////////////////////////////
+--          StorageProcedure RoleWebSite
+--///////////////////////////////////////////////
 
+CREATE PROCEDURE [dbo].[GetAllRole]
+AS
+BEGIN
+     SELECT Id, [Name]
+	 FROM RoleWebSite 
+END
+GO
+
+CREATE PROCEDURE [dbo].[GetRoleById]
+	@Id INT
+AS
+BEGIN
+     SELECT Id, [Name]
+	 FROM RoleWebSite 
+	 WHERE @Id = Id
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[GetRolesForUser]
+	@UserName NVARCHAR(50)
+AS
+BEGIN
+
+SELECT rol.[Name]
+FROM [User]
+ INNER JOIN RoleWebSite rol
+ ON [User].RoleWebSite = rol.Id
+WHERE @UserName = [User].Login
+     
+END
+GO
+
+--///////////////////////////////////////////////
+--          StorageProcedure User
+--///////////////////////////////////////////////
+CREATE PROCEDURE [dbo].[CheckUser]
+	@Login NVARCHAR(50),
+	@HashPassword NVARCHAR(50)
+AS	
+BEGIN
+	SELECT [Login],HashPassword
+	FROM [User]
+	WHERE  @Login = [Login] AND @HashPassword = HashPassword;
+END
+GO
+
+CREATE PROCEDURE [dbo].[GetUserById]
+	@Id INT
+AS
+BEGIN
+     SELECT	Id, FirstName, LastName, MiddleName, RoleWebSite, Avatar
+	 FROM [User]
+     WHERE (@Id = Id )
+END
+GO
+
+CREATE PROCEDURE [dbo].[GetUserByIdLogin]
+	@Login NVARCHAR(50)
+AS
+BEGIN
+     SELECT	Id, RoleWebSite
+	 FROM [User]
+     WHERE [Login]  = @Login
+END
+GO
+
+CREATE PROCEDURE [dbo].[GetUserByRole]
+	@IdRole INT
+AS
+BEGIN
+     SELECT	Id, FirstName, LastName, MiddleName, RoleWebSite, Avatar
+	 FROM [User]
+     WHERE (@IdRole = RoleWebSite )
+END
+GO
+
+CREATE PROCEDURE [dbo].[InsertUser]
+
+    @FirstName NVARCHAR(50),
+	@LastName NVARCHAR(50),
+	@MiddleName NVARCHAR(50),
+	@Login NVARCHAR(50),
+	@HashPassword VARBINARY(MAX),
+	@RoleWebSite INT,
+	@Avatar VARBINARY(MAX) = NULL
+AS
+BEGIN	
+	INSERT INTO [User](FirstName,LastName,MiddleName,[Login],HashPassword, RoleWebSite, Avatar)
+	VALUES (@FirstName, @LastName, @MiddleName, @Login, @HashPassword, @RoleWebSite, @Avatar)
+END
+GO
+
+CREATE PROCEDURE [dbo].[DeleteUser]
+	@Id INT
+AS	
+BEGIN
+	DELETE FROM [User]
+	WHERE Id = @Id;
+END
+GO
+
+CREATE PROCEDURE [dbo].[UpdateUser]
+	@Id INT,
+	@FirstName NVARCHAR(50),
+	@LastName NVARCHAR(50),
+	@MiddleName NVARCHAR(50),
+	@RoleWebSite INT,
+	@Avatar VARBINARY(MAX) = NULL
+AS
+BEGIN
+	UPDATE [User] SET FirstName = @FirstName,LastName = @LastName, MiddleName = @MiddleName, RoleWebSite = @RoleWebSite, Avatar = @Avatar
+	FROM [User]
+	WHERE (@Id = Id)
+END
+GO
+
+CREATE PROCEDURE [dbo].[GetAllUsers]
+AS
+BEGIN
+     SELECT Id, FirstName, LastName, MiddleName, [RoleWebSite]
+	 FROM [User] 
+END
+GO
 
 --///////////////////////////////////////////////
 --          StorageProcedure Coin
@@ -78,6 +228,46 @@ BEGIN
      SELECT	Title,[Date],Price,Anniversary,[Description],IdCountry, IdMaterial, Picture
 	 FROM Coin
      WHERE (@Id = Id )
+END
+GO
+
+CREATE PROCEDURE [dbo].[GetCoinByCountry]
+	@IdCountry INT
+AS
+BEGIN
+     SELECT	Title,[Date],Price,Anniversary,[Description],IdCountry, IdMaterial, Picture
+	 FROM Coin
+     WHERE (@IdCountry = IdCountry )
+END
+GO
+
+CREATE PROCEDURE [dbo].[GetCoinByMaterial]
+	@IdMaterial INT
+AS
+BEGIN
+     SELECT	Title,[Date],Price,Anniversary,[Description],IdCountry, IdMaterial, Picture
+	 FROM Coin
+     WHERE (@IdMaterial = IdMaterial )
+END
+GO
+
+CREATE PROCEDURE [dbo].[GetCoinByPrice]
+	@Price INT
+AS
+BEGIN
+     SELECT	Title,[Date],Price,Anniversary,[Description],IdCountry, IdMaterial, Picture
+	 FROM Coin
+     WHERE (@Price = Price )
+END
+GO
+
+CREATE PROCEDURE [dbo].[GetCoinByTitle]
+	@Title NVARCHAR(150)
+AS
+BEGIN
+     SELECT	Title,[Date],Price,Anniversary,[Description],IdCountry, IdMaterial, Picture
+	 FROM Coin
+     WHERE Title LIKE '%'+@Title+'%'
 END
 GO
 
