@@ -61,7 +61,47 @@ namespace SSU.Coins.DAL
 
         public IEnumerable<Coin> GetByCountry(int id)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var command = connection.CreateCommand();
+
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "dbo.GetCountryById";
+
+                SqlDataReader reader;
+
+                try
+                {
+                    connection.Open();
+
+                    reader = command.ExecuteReader();
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+
+                while (reader.Read())
+                {
+                    yield return new Coin
+                    {
+                        Title = reader["Title"] as string,
+                        Date = (DateTime)reader["Date"],
+                        Price = reader["Price"] as int?,
+                        Anniversary = reader["Anniversary"] as string,
+                        Description = reader["Description"] as string,
+                        IdCountry = (int)reader["IdCountry"],
+                        IdMaterial = (int)reader["IdMaterial"],
+                        Picture = reader["Picture"] as byte[]
+                    };
+                }
+
+                yield break;
+
+            }
+        
         }
 
         public Coin GetById(int id)
@@ -114,18 +154,134 @@ namespace SSU.Coins.DAL
 
         public IEnumerable<Coin> GetByMaterial(int id)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var command = connection.CreateCommand();
+
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "dbo.GetMaterialById";
+
+                SqlDataReader reader;
+
+                try
+                {
+                    connection.Open();
+
+                    reader = command.ExecuteReader();
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+
+                while (reader.Read())
+                {
+                    yield return new Coin
+                    {
+                        Title = reader["Title"] as string,
+                        Date = (DateTime)reader["Date"],
+                        Price = reader["Price"] as int?,
+                        Anniversary = reader["Anniversary"] as string,
+                        Description = reader["Description"] as string,
+                        IdCountry = (int)reader["IdCountry"],
+                        IdMaterial = (int)reader["IdMaterial"],
+                        Picture = reader["Picture"] as byte[]
+                    };
+                }
+
+                yield break;
+
+            }
         }
 
         public IEnumerable<Coin> GetByPrice(int price)
         {
-            throw new NotImplementedException();
-        }
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var command = connection.CreateCommand();
+
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "dbo.GetCoinByPrice";
+
+                SqlDataReader reader;
+
+                try
+                {
+                    connection.Open();
+
+                    reader = command.ExecuteReader();
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+
+                while (reader.Read())
+                {
+                    yield return new Coin
+                    {
+                        Title = reader["Title"] as string,
+                        Date = (DateTime)reader["Date"],
+                        Price = reader["Price"] as int?,
+                        Anniversary = reader["Anniversary"] as string,
+                        Description = reader["Description"] as string,
+                        IdCountry = (int)reader["IdCountry"],
+                        IdMaterial = (int)reader["IdMaterial"],
+                        Picture = reader["Picture"] as byte[]
+                    };
+                }
+
+                yield break;
+            }
+
+        }//!
 
         public IEnumerable<Coin> GetByTitle(string title)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var command = connection.CreateCommand();
+
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "dbo.GetCoinByTitle";
+
+                SqlDataReader reader;
+
+                try
+                {
+                    connection.Open();
+
+                    reader = command.ExecuteReader();
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+
+                while (reader.Read())
+                {
+                    yield return new Coin
+                    {
+                        Title = reader["Title"] as string,
+                        Date = (DateTime)reader["Date"],
+                        Price = reader["Price"] as int?,
+                        Anniversary = reader["Anniversary"] as string,
+                        Description = reader["Description"] as string,
+                        IdCountry = (int)reader["IdCountry"],
+                        IdMaterial = (int)reader["IdMaterial"],
+                        Picture = reader["Picture"] as byte[]
+                    };
+                }
+
+                yield break;
         }
+    }//!
 
         public void RemoveById(int id)
         {
