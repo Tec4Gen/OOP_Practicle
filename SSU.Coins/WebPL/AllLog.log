@@ -1,0 +1,20 @@
+2020-12-11 21:51:15,767 [8] ERROR LOGGER Could not find stored procedure 'dbo.GetRoleByName'.
+2020-12-11 21:51:44,665 [6] INFO  LOGGER Role received
+2020-12-11 21:52:42,436 [6] ERROR LOGGER Procedure or function 'InsertUser' expects parameter '@LastName', which was not supplied.
+2020-12-11 21:59:21,454 [6] ERROR LOGGER Procedure or function 'InsertUser' expects parameter '@LastName', which was not supplied.
+2020-12-11 22:02:39,373 [6] ERROR LOGGER Procedure or function 'InsertUser' expects parameter '@LastName', which was not supplied.
+2020-12-11 22:03:28,241 [6] INFO  LOGGER User added
+2020-12-11 22:05:29,609 [6] ERROR LOGGER Violation of UNIQUE KEY constraint 'UQ__User__5E55825B8AD0A209'. Cannot insert duplicate key in object 'dbo.User'. The duplicate key value is (123@yandex.ru).
+The statement has been terminated.
+2020-12-11 22:09:31,659 [6] INFO  LOGGER User added
+2020-12-11 22:10:45,855 [6] INFO  LOGGER There is such a user
+2020-12-11 22:10:55,867 [7] INFO  LOGGER There is such a user
+2020-12-11 22:12:52,108 [7] INFO  LOGGER There is such a user
+2020-12-11 22:23:41,377 [6] INFO  LOGGER There is such a user
+2020-12-11 23:43:06,723 [6] INFO  LOGGER There is such a user
+2020-12-11 23:43:49,463 [8] INFO  LOGGER There is such a user
+2020-12-11 23:44:10,782 [6] INFO  LOGGER There is such a user
+2020-12-11 23:44:55,780 [6] INFO  LOGGER There is such a user
+2020-12-11 23:45:21,434 [6] INFO  LOGGER There is such a user
+2020-12-11 23:45:46,995 [8] INFO  LOGGER There is such a user
+2020-12-11 23:46:54,911 [6] INFO  LOGGER There is such a user

@@ -1,0 +1,9 @@
+D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.Logger\bin\Debug\SSU.Coins.Logger.dll
+D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.Logger\bin\Debug\SSU.Coins.Logger.pdb
+D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.Logger\bin\Debug\log4net.dll
+D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.Logger\bin\Debug\log4net.xml
+D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.Logger\obj\Debug\SSU.Coins.Logger.csprojAssemblyReference.cache
+D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.Logger\obj\Debug\SSU.Coins.Logger.csproj.CoreCompileInputs.cache
+D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.Logger\obj\Debug\SSU.Coins.Logger.csproj.CopyComplete
+D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.Logger\obj\Debug\SSU.Coins.Logger.dll
+D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.Logger\obj\Debug\SSU.Coins.Logger.pdb

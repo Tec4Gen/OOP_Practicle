@@ -1,0 +1,72 @@
+﻿@using SSU.Coins.Entities;
+@using SSU.Coins.Ioc;
+@using SSU.Coins.BLL.Interface;
+@using Ninject;
+
+@{ Layout = "BasePages/_basePage.cshtml";
+    Page.Section = "SignUp";
+    var _userLogic = DependenciesResolver.Kernel.Get<IUserLogic>();
+    var _roleWebSiteLogic = DependenciesResolver.Kernel.Get<IRoleWebSiteLogic>();
+
+    if (IsPost)
+    {
+        if (!Request["surname"].IsEmpty() && !Request["firstName"].IsEmpty() && !Request["middleName"].IsEmpty() && !Request["login"].IsEmpty() && !Request["password"].IsEmpty())
+        {
+            System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
+            byte[] password = encoding.GetBytes(Request["password"]);
+
+            int idRole = _roleWebSiteLogic.GetByName("User").Id;
+
+            _userLogic.Add(new User
+            {
+                FirstName = Request["firstName"],
+                LastName = Request["surname"],
+                MiddleName = Request["middleName"],
+                Login = Request["login"],
+                HashPassword = password,
+                RoleWebSite = idRole
+
+            }, out ICollection<Error> listError);
+
+            if (!listError.Any())
+            {
+                //TODO ALERT IF lENGTH NOT 0
+            }
+            else
+            {
+                //TUDO ERROR
+            }
+
+        }
+
+    }
+}
+
+@section SignUp {
+    <main class="main_registration" role="main">
+        <div class="container-registration d-flex align-items-center ">
+            <form class="form-signin" action="~/Pages/SignUp.cshtml" method="post">
+                <h1 class="text-center h3 mb-3 font-weight-normal">Регистрация</h1>
+                <label for="inputText" class="visually-hidden"></label>
+                <input name="surname" type="text" id="inputText" class="form-control" placeholder="Surname" required="" autofocus="">
+
+                <label for="inputText" class="visually-hidden"></label>
+                <input name="firstName" type="text" id="inputText" class="form-control" placeholder="First name" required="" autofocus="">
+
+                <label for="inputText" class="visually-hidden"></label>
+                <input name="middleName" type="text" id="inputText" class="form-control" placeholder="Middle name" required="" autofocus="">
+
+                <label for="inputEmail" class="visually-hidden"></label>
+                <input name="login" type="email" id="inputText" class="form-control" placeholder="Email address" required="" autofocus="">
+
+                <label for="inputPassword" class="visually-hidden"></label>
+                <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+                <div class="checkbox mb-3">
+
+                </div>
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+                <p class="mt-5 mb-3 text-muted">© 2017-2020</p>
+            </form>
+        </div>
+    </main>
+}
