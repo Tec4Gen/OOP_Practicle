@@ -1,6 +1,0 @@
-D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.Entities\bin\Debug\SSU.Coins.Entities.dll
-D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.Entities\bin\Debug\SSU.Coins.Entities.pdb
-D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.Entities\obj\Debug\SSU.Coins.Entities.csprojAssemblyReference.cache
-D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.Entities\obj\Debug\SSU.Coins.Entities.csproj.CoreCompileInputs.cache
-D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.Entities\obj\Debug\SSU.Coins.Entities.dll
-D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.Entities\obj\Debug\SSU.Coins.Entities.pdb

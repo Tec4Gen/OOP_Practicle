@@ -110,6 +110,15 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE [dbo].[GetRoleByName]
+	@Name NVARCHAR(50)
+AS
+BEGIN
+     SELECT Id
+	 FROM RoleWebSite 
+	 WHERE @Name = [Name]
+END
+GO
 
 CREATE PROCEDURE [dbo].[GetRolesForUser]
 	@UserName NVARCHAR(50)
@@ -130,10 +139,10 @@ GO
 --///////////////////////////////////////////////
 CREATE PROCEDURE [dbo].[CheckUser]
 	@Login NVARCHAR(50),
-	@HashPassword NVARCHAR(50)
+	@HashPassword VARBINARY(MAX)
 AS	
 BEGIN
-	SELECT [Login],HashPassword
+	SELECT Id
 	FROM [User]
 	WHERE  @Login = [Login] AND @HashPassword = HashPassword;
 END
