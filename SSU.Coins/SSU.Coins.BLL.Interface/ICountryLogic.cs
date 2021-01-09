@@ -8,6 +8,7 @@ namespace SSU.Coins.BLL.Interface
         Country GetById(int id);
 
         IEnumerable<Country> GetAll();
+        Country GetByTitle(string title);
 
         void RemoveById(int id, ICollection<Error> errorList);
 

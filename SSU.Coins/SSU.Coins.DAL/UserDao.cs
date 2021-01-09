@@ -102,52 +102,6 @@ namespace SSU.Coins.DAL
             }
         }
 
-        public bool Auth(User user)
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                var command = connection.CreateCommand();
-
-                command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "dbo.AuthUser";
-
-                SqlParameter parameterLogin = new SqlParameter
-                {
-                    DbType = DbType.String,
-                    ParameterName = "@Login",
-                    Value = user.Login,
-                    Direction = ParameterDirection.Input
-                };
-                command.Parameters.Add(parameterLogin);
-
-                SqlParameter parameterHashPassword = new SqlParameter
-                {
-                    DbType = DbType.Binary,
-                    ParameterName = "@HashPassword",
-                    Value = user.HashPassword,
-                    Direction = ParameterDirection.Input
-                };
-                command.Parameters.Add(parameterHashPassword);
-
-                try
-                {
-                    connection.Open();
-                    if ((int)command.ExecuteScalar() > 0)
-                    {
-                        Logs.Log.Info("User auth");
-                        return true;
-                    }
-                    return false;
-
-                }
-                catch (Exception ex)
-                {
-                    Logs.Log.Error(ex.Message);
-                    return false;
-                }
-            }
-        }
-
         public IEnumerable<User> GetAll()
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))

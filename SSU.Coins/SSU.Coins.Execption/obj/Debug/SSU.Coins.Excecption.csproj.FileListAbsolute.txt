@@ -1,6 +1,5 @@
 D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.Execption\bin\Debug\SSU.Coins.Execption.dll
 D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.Execption\bin\Debug\SSU.Coins.Execption.pdb
-D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.Execption\obj\Debug\SSU.Coins.Excecption.csprojAssemblyReference.cache
 D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.Execption\obj\Debug\SSU.Coins.Excecption.csproj.CoreCompileInputs.cache
 D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.Execption\obj\Debug\SSU.Coins.Execption.dll
 D:\MyGit\OOP_Project\SSU.Coins\SSU.Coins.Execption\obj\Debug\SSU.Coins.Execption.pdb

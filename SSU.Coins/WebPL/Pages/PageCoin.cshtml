@@ -1,0 +1,72 @@
+﻿@using SSU.Coins.Entities;
+@using SSU.Coins.Ioc;
+@using SSU.Coins.BLL.Interface;
+@using Ninject;
+@{
+    Layout = "BasePages/_basePage.cshtml";
+    Page.Section = "CoinsCatalog";
+    Coin coin = null;
+
+    var _logicCoin = DependenciesResolver.Kernel.Get<ICoinLogic>();
+    var _logicCountry = DependenciesResolver.Kernel.Get<ICountryLogic>();
+    var _logicMaterial = DependenciesResolver.Kernel.Get<IMaterialLogic>();
+
+    if (!Request["Coin"].IsEmpty())
+    {
+
+
+        if (int.TryParse(Request["Coin"], out int id))
+        {
+
+            coin = _logicCoin.GetById(id);
+        }
+        else
+        {
+            Response.Redirect($"~/Pages/404.cshtml");
+        }
+
+    }
+    else
+    {
+        Response.Redirect($"~/Pages/404.cshtml");
+    }
+
+
+
+}
+
+@section CoinsCatalog{
+    <main role="main">
+        <div class="album py-5 bg-light">
+            <div class="container">
+                <div class="row d-flex d-flex justify-content-between mt-3"> 
+                    <div class="row featurette">
+                        <div class="col-md-5">
+                            @if (coin.Picture != null)
+                            {
+                                <img src="data:image;base64,@System.Convert.ToBase64String(coin.Picture)" alt="Alternate Text" class="picCoin" />
+                            }
+                            else
+                            {
+                                <img src="~/Style/Pic/kiany.png" alt="Alternate Text" class="picCoin" />
+                            }
+                        </div>
+                        <div class="col-md-5">
+                            <h2 class="featurette-heading head-text-coin overflow-single">@coin.Title</h2>
+                            <p class="lead text-coin overflow-single">Год выпуска: @coin.Date.ToString("yyyy")</p>
+                            <p class="lead text-coin overflow-single">Страна: @_logicCountry.GetById(coin.IdCountry).Title</p>
+                            <p class="lead text-coin overflow-single">Материал: @_logicMaterial.GetById(coin.IdMaterial).Title </p>
+                            <p class="lead text-coin overflow-single">Стоимость: @coin.Price</p>
+
+                        </div>
+                        <br />
+                        <div class="col-xs-12 col-md-12">
+                            <p class="lead description"> Описание: @coin.Description</p>
+                        </div>
+                        <br />
+                    </div>
+                    </div>
+            </div>
+        </div>
+    </main>
+}

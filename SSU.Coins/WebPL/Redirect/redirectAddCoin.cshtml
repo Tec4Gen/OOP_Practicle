@@ -1,0 +1,84 @@
+﻿@using SSU.Coins.Ioc;
+@using SSU.Coins.BLL.Interface;
+@using SSU.Coins.Entities;
+@using Ninject;
+@using System;
+@using System.Threading;
+@{
+
+    if (IsPost)
+    {
+        if (!Request["title"].IsEmpty() && !Request["year"].IsEmpty() && !Request["material"].IsEmpty() && !Request["country"].IsEmpty() && !Request["description"].IsEmpty())
+        {
+            var title = Request["title"];
+
+            if (!int.TryParse(Request["year"], out int year))
+            {
+                Response.Redirect($"~/Pages/404.cshtml");
+            }
+
+            var materialLogic = DependenciesResolver.Kernel.Get<IMaterialLogic>();
+            var countryLogic = DependenciesResolver.Kernel.Get<ICountryLogic>();
+            var tep = Request["material"];
+            var tepm = Request["country"];
+
+
+            var idMaterial = materialLogic.GetByTitle(Request["material"]).Id;
+            var idCountry = countryLogic.GetByTitle(Request["country"]).Id;
+            var description = Request["description"];
+
+            int? price = null;
+
+            if (!Request["price"].IsEmpty())
+            {
+                int.TryParse(Request["price"], out int temp);
+                price = temp;
+            }
+            var a = Request["picture"];
+
+            var pictureImg = WebImage.GetImageFromRequest("picture");
+            byte[] picture = null;
+
+            if (pictureImg != null)
+            {
+                picture = pictureImg.GetBytes();
+            }
+
+            var coinLogic = DependenciesResolver.Kernel.Get<ICoinLogic>();
+
+            var dateTime = Request["dateTime"];
+            var date = DateTime.ParseExact($"{year}", "yyyy", null);
+
+            coinLogic.Add(new Coin
+            {
+                Title = title,
+                Date = date,
+                IdMaterial = idMaterial,
+                IdCountry = idCountry,
+                Description = description,
+                Price = price,
+                Picture = picture
+            }, out ICollection<Error> errorList);
+
+
+            if (!errorList.Any())
+            {
+                Page.Message = "Монета добавлена";
+                Response.Redirect($"~/Pages/AddCoin.cshtml?Success={Page.Message}");
+            }
+            else
+            {
+                foreach (var item in errorList)
+                {
+                    Page.Message = @item.Message;
+                }
+            }
+
+            Response.Redirect($"~/Pages/AddCoin.cshtml?Error={Page.Message}");
+        }
+        else
+        {
+            Response.Redirect($"~/Pages/404.cshtml");
+        }
+    }
+}

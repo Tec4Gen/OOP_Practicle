@@ -23,5 +23,10 @@ namespace SSU.Coins.BLL
                 return _authDao.CanLogin(login, password);
             }
         }
+
+        public bool IsExistsLogin(string login)
+        {
+            return _authDao.IsExistsLogin(login);
+        }
     }
 }

@@ -1,0 +1,42 @@
+﻿@using SSU.Coins.Entities;
+@using SSU.Coins.Ioc;
+@using SSU.Coins.BLL.Interface;
+@using Ninject;
+@if (IsPost)
+{
+    if (IsPost)
+    {
+        if (!Request["surname"].IsEmpty() && !Request["firstName"].IsEmpty() && !Request["middleName"].IsEmpty() && !Request["login"].IsEmpty() && !Request["password"].IsEmpty())
+        {
+            System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
+            byte[] password = encoding.GetBytes(Request["password"]);
+
+            var _userLogic = DependenciesResolver.Kernel.Get<IUserLogic>();
+            var _roleWebSiteLogic = DependenciesResolver.Kernel.Get<IRoleWebSiteLogic>();
+
+            int idRole = _roleWebSiteLogic.GetByName("User").Id;
+
+            _userLogic.Add(new User
+            {
+                FirstName = Request["firstName"],
+                LastName = Request["surname"],
+                MiddleName = Request["middleName"],
+                Login = Request["login"],
+                HashPassword = password,
+                RoleWebSite = idRole
+
+            }, out ICollection<Error> listError);
+
+            if (!listError.Any())
+            {
+                Response.Redirect($"~/Pages/Index.cshtml");
+            }
+            else
+            {
+                //TUDO FATAL ERROR
+            }
+
+        }
+
+    }
+}

@@ -12,7 +12,8 @@ namespace SSU.Coins.Entities
 
         public int? Price { get; set; }
 
-        public string Anniversary { get; set; }
+        //TODO
+        //public string Anniversary { get; set; }
 
         public string Description { get; set; }
 

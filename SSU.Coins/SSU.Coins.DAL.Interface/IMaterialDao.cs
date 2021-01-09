@@ -7,6 +7,8 @@ namespace SSU.Coins.DAL.Interface
     {
         Material GetById(int id);
 
+        Material GetByTitle(string title);
+
         IEnumerable<Material> GetAll();
 
         void RemoveById(int id);

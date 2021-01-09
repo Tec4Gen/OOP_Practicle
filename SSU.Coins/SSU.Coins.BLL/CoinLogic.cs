@@ -1,6 +1,7 @@
 ﻿using SSU.Coins.BLL.Interface;
 using SSU.Coins.DAL.Interface;
 using SSU.Coins.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace SSU.Coins.BLL
@@ -14,6 +15,19 @@ namespace SSU.Coins.BLL
             _coinLogic = coinLogic;
         }
 
+        public void Add(Coin coin, out ICollection<Error> errorList)
+        {
+            errorList = new List<Error>();
+            try
+            {
+                _coinLogic.Add(coin);
+            }
+            catch (Exception ex)
+            {
+                errorList.Add(new Error { Message = ex.Message });
+            }
+        }
+
         public IEnumerable<Coin> GetAll()
         {
             return _coinLogic.GetAll();
@@ -22,6 +36,11 @@ namespace SSU.Coins.BLL
         public IEnumerable<Coin> GetByCountry(int id)
         {
             return _coinLogic.GetByCountry(id);
+        }
+
+        public IEnumerable<Coin> GetByDate(int id)
+        {
+            return _coinLogic.GetByDate(id);
         }
 
         public Coin GetById(int id)
@@ -42,6 +61,11 @@ namespace SSU.Coins.BLL
         public IEnumerable<Coin> GetByTitle(string title)
         {
             return _coinLogic.GetByTitle(title);
+        }
+
+        public IEnumerable<Coin> GetByTitleAndCountry(string title, int idCountry)
+        {
+            return _coinLogic.GetByTitleAndCountry(title, idCountry);
         }
 
         public void RemoveById(int id, ICollection<Error> errorList)

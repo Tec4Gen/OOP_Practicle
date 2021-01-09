@@ -24,6 +24,11 @@ namespace SSU.Coins.BLL
             return _countryLogic.GetById(id);
         }
 
+        public Country GetByTitle(string title)
+        {
+            return _countryLogic.GetByTitle(title);
+        }
+
         public void RemoveById(int id, ICollection<Error> errorList)
         {
             _countryLogic.RemoveById(id);

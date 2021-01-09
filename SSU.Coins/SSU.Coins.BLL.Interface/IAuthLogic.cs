@@ -3,5 +3,7 @@
     public interface IAuthLogic
     {
         bool CanLogin(string login, byte[] password);
+
+        bool IsExistsLogin(string login);
     }
 }

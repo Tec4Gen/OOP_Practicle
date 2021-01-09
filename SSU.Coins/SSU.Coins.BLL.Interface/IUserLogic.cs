@@ -15,7 +15,6 @@ namespace SSU.Coins.BLL.Interface
 
         void Update(User user, out ICollection<Error> listError);
 
-        bool Auth(User user);
         IEnumerable<User> GetAll();
 
         IEnumerable<User> GetAllUserByRole(int id);

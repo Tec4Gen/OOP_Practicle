@@ -47,6 +47,9 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
     </Reference>
@@ -91,13 +94,41 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Jq\jquery-3.5.1.min.js" />
+    <Content Include="Js\addCoinVailable.js" />
+    <Content Include="Js\ajaxSignIn.js" />
+    <Content Include="Js\ajaxSignUp.js" />
+    <Content Include="Model\AuthCheck.aspx" />
+    <Content Include="Style\Alerts.css" />
     <Content Include="Style\floating-labels.css" />
+    <Content Include="Style\Icon\all.css" />
+    <Content Include="Style\Icon\all.min.css" />
+    <Content Include="Style\Icon\brands.css" />
+    <Content Include="Style\Icon\brands.min.css" />
+    <Content Include="Style\Icon\fontawesome.css" />
+    <Content Include="Style\Icon\fontawesome.min.css" />
+    <Content Include="Style\Icon\regular.css" />
+    <Content Include="Style\Icon\regular.min.css" />
+    <Content Include="Style\Icon\solid.css" />
+    <Content Include="Style\Icon\solid.min.css" />
+    <Content Include="Style\Icon\svg-with-js.css" />
+    <Content Include="Style\Icon\svg-with-js.min.css" />
+    <Content Include="Style\Icon\v4-shims.css" />
+    <Content Include="Style\Icon\v4-shims.min.css" />
     <Content Include="Style\StyleAutorization.css" />
     <Content Include="Style\Style.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\AuthCheck.aspx.cs">
+      <DependentUpon>AuthCheck.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Model\AuthCheck.aspx.designer.cs">
+      <DependentUpon>AuthCheck.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Model\MyRoleProvider.cs" />
+    <Content Include="Model\Test2.aspx" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -107,6 +138,19 @@
     <Content Include="Pages\SignIn.cshtml" />
     <Content Include="Pages\SignUp.cshtml" />
     <Content Include="Pages\SignOut.cshtml" />
+    <Content Include="Redirect\redirectSignIn.cshtml" />
+    <Content Include="Redirect\redirectSignUp.cshtml" />
+    <Content Include="Pages\CoinsCatalog.cshtml" />
+    <Content Include="Pages\BasePages\_header.cshtml" />
+    <Content Include="Pages\BasePages\_filterForCountry.cshtml" />
+    <Content Include="Pages\AddCoin.cshtml" />
+    <Content Include="Redirect\redirectAddCoin.cshtml" />
+    <Content Include="Pages\404.cshtml" />
+    <Content Include="Pages\PageCoin.cshtml" />
+    <Content Include="Pages\Trainings.cshtml" />
+    <Content Include="Pages\FirstArticle.cshtml" />
+    <Content Include="Pages\SecondArticle.cshtml" />
+    <Content Include="Pages\ThirdArticle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -131,6 +175,9 @@
       <Project>{37cc1cdb-591d-4ae0-afc9-7df8543d4359}</Project>
       <Name>SSU.Coins.Ioc</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Style\Pic\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

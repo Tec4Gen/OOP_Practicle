@@ -1,0 +1,134 @@
+﻿@using SSU.Coins.Entities;
+@using SSU.Coins.Ioc;
+@using SSU.Coins.BLL.Interface;
+@using Ninject;
+@{
+    Layout = "BasePages/_basePage.cshtml";
+    Page.Section = "CoinsCatalog";
+
+    var _logicCoin = DependenciesResolver.Kernel.Get<ICoinLogic>();
+    var _logicCountry = DependenciesResolver.Kernel.Get<ICountryLogic>();
+    var _logicMaterial = DependenciesResolver.Kernel.Get<IMaterialLogic>();
+
+    string country = null;
+
+
+    IEnumerable<Coin> filterCoins = new List<Coin>();
+
+    var a = Request["Country"];
+    if (!Request["Country"].IsEmpty())
+    {
+        switch (Request["Country"])
+        {
+            case "USSR":
+                country = "СССР";
+                Page.Country = Request["Country"];
+                break;
+            case "Russia":
+                country = "Россия";
+                Page.Country = Request["Country"];
+                break;
+            case "Germany":
+                country = "Германия";
+                Page.Country = Request["Country"];
+                break;
+            default:
+                Page.Country = Request["Country"];
+                Response.Redirect($"~/Pages/404.cshtml");
+                break;
+        }
+
+        var idCountry = _logicCountry.GetByTitle(country).Id;
+        filterCoins = _logicCoin.GetByCountry(idCountry);
+
+
+        if (IsPost)
+        {
+            if (!Request["title"].IsEmpty() || !Request["material"].IsEmpty() || !Request["year"].IsEmpty())
+            {
+                if (!Request["title"].IsEmpty())
+                {
+                    var b = Request["title"];
+                    filterCoins = _logicCoin.GetByTitleAndCountry(Request["title"], idCountry);
+                    if (!Request["material"].IsEmpty())
+                    {
+                        filterCoins = filterCoins.Where(p => _logicMaterial.GetById(p.IdMaterial).Title == Request["material"]).Select(p => p);
+                        if (!Request["year"].IsEmpty())
+                        {
+                            if (int.TryParse(Request["year"], out int year))
+                            {
+                                filterCoins = filterCoins.Where(p => p.Date.Year == year);
+                            }
+
+                        }
+                    }
+                    if (!Request["year"].IsEmpty())
+                    {
+                        if (int.TryParse(Request["year"], out int year))
+                        {
+                            filterCoins = filterCoins.Where(p => p.Date.Year == year).Select(p=> p);
+                        }
+                    }
+                }
+                else if (!Request["material"].IsEmpty())
+                {
+
+                    filterCoins = filterCoins.Where(p => _logicMaterial.GetById(p.IdMaterial).Title == Request["material"]).Select(p => p);
+
+                    if (!Request["year"].IsEmpty())
+                    {
+                        if (int.TryParse(Request["year"], out int year))
+                        {
+                            filterCoins = filterCoins.Where(p => p.Date.Year == year);
+                        }
+
+                    }
+
+                }
+                else if (!Request["year"].IsEmpty())
+                {
+                    if (int.TryParse(Request["year"], out int year))
+                    {
+                        filterCoins = filterCoins.Where(p => p.Date.Year == year);
+                    }
+                }
+            }
+        }
+    }
+}
+
+@section CoinsCatalog{
+    <main role="main">
+        @RenderPage("~/Pages/BasePages/_filterForCountry.cshtml")
+        <div class="album py-5 bg-light">
+            <div class="container">
+                @foreach (var item in filterCoins)
+                {
+                    <div class="row d-flex d-flex justify-content-between mt-3">
+                        <div class="row featurette">
+                            <div class="col-md-5">
+                                <a href="~/Pages/PageCoin.cshtml?Coin=@item.Id"><h2 class="featurette-heading head-text-coin overflow-single">@item.Title</h2></a>
+                                <p class="lead text-coin overflow-single">Год выпуска: @item.Date.ToString("yyyy")</p>
+                                <p class="lead text-coin overflow-single">Страна: @_logicCountry.GetById(@item.IdCountry).Title</p>
+                                <p class="lead text-coin overflow-single">Материал: @_logicMaterial.GetById(@item.IdMaterial).Title </p>
+                                <p class="lead text-coin overflow-single">Стоимость: @item.Price</p>
+                                <p class="lead text-coin overflow-multiply">Описание: @item.Description</p>
+                            </div>
+                            <div class="col-md-5">
+                                @if (item.Picture != null)
+                                {
+                                    <img src="data:image;base64,@System.Convert.ToBase64String(item.Picture)" alt="Alternate Text" class="picCoin" />
+                                }
+                                else
+                                {
+                                    <img src="~/Style/Pic/kiany.png" alt="Alternate Text" class="picCoin" />
+                                }
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </main>
+}

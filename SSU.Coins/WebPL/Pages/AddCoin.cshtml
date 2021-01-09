@@ -1,0 +1,90 @@
+﻿@using SSU.Coins.Entities;
+@using SSU.Coins.Ioc;
+@using SSU.Coins.BLL.Interface;
+@using Ninject;
+
+@{
+    Layout = "BasePages/_basePage.cshtml";
+    Page.Section = "addCoin";
+    var _coinLogic = DependenciesResolver.Kernel.Get<ICoinLogic>();
+    var _countryLogic = DependenciesResolver.Kernel.Get<ICountryLogic>();
+    var _materialLogic = DependenciesResolver.Kernel.Get<IMaterialLogic>();
+
+}
+
+
+
+@section addCoin {
+    <head>
+        <link href="~/Style/Alerts.css" rel="stylesheet" />
+    </head>
+
+    <main class="container-add-coin" role="main">
+        <div class="container-add-coin d-flex align-items-center ">
+            <form class="form-add-coin" method="post" action="~/Redirect/redirectAddCoin.cshtml" enctype="multipart/form-data">
+                @if (!Request["Success"].IsEmpty())
+                {
+                    <div class="alert alert-success show alert-coin" role="alert">
+                        @Request["Success"]
+                    </div>
+                }
+                @if (!Request["Error"].IsEmpty())
+                {
+                    <div class="alert alert-danger show alert-coin" role="alert">
+                        @Request["Error"]
+                    </div>
+                }
+                <br />
+                <div class="form-group">
+                    <label for="inputText" class="text-error label-title visually-hidden"></label>
+                    <input name="title" type="text" id="inputTitle" class="form-control" placeholder="Название" required="" autofocus="">
+                </div>
+                <div class="form-group">
+                    <label for="inputText" class="text-error label-year visually-hidden"></label>
+                    <input name="year" type="text" id="inputYear" class="form-control" placeholder="Год" required="" autofocus="">
+                </div>
+
+                <div class="form-group">
+                    <label for="inputState">Материал</label>
+                    <select name="material" id="inputMaterial" class="form-control">
+                        <option value="" selected disabled>Выберите материал</option>
+                        @foreach (var item in _materialLogic.GetAll())
+                        {
+                            <option>@item.Title</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="inputState">Страна</label>
+                    <select name="country" id="inputCountry" class="form-control">
+                        <option value="" selected disabled>Выберите страну</option>
+                        @foreach (var item in _countryLogic.GetAll())
+                        {
+                            <option>@item.Title</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="Decription">Описание</label>
+                    <textarea name="description" class="form-control limitation-textarea" id="Decription" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputText" class="text-error label-frist-name visually-hidden"></label>
+                    <input name="price" type="text" id="inputPrice" class="form-control" placeholder="Цена" autofocus="">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlFile1">Выберите изображение</label>
+                    <input name="picture" type="file" class="form-control-file" id="inputPicture" value="" accept="image/*" enctype="multipart/form-data" />
+                </div>
+                <br />
+                <button class="w-100 btn btn-lg btn-primary" type="submit" id="submit">Sign in</button>
+            </form>
+
+        </div>
+    </main>
+
+    <script src="~/Jq/jquery-3.5.1.min.js"></script>
+    <script src="~/Js/addCoinVailable.js"></script>
+}

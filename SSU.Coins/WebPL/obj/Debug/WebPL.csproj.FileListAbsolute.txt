@@ -90,3 +90,5 @@ D:\MyGit\OOP_Project\SSU.Coins\WebPL\bin\SSU.Coins.Execption.pdb
 D:\MyGit\OOP_Project\SSU.Coins\WebPL\bin\SSU.Coins.DAL.pdb
 D:\MyGit\OOP_Project\SSU.Coins\WebPL\bin\SSU.Coins.Logger.pdb
 D:\MyGit\OOP_Project\SSU.Coins\WebPL\bin\log4net.xml
+D:\MyGit\OOP_Project\SSU.Coins\WebPL\bin\Newtonsoft.Json.dll
+D:\MyGit\OOP_Project\SSU.Coins\WebPL\bin\Newtonsoft.Json.xml

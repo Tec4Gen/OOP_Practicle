@@ -19,7 +19,7 @@ namespace SSU.Coins.DAL
                 var command = connection.CreateCommand();
 
                 command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "dbo.InsertCountry";
+                command.CommandText = "dbo.GetAllCountry";
 
                 SqlDataReader reader;
 
@@ -75,6 +75,47 @@ namespace SSU.Coins.DAL
                     {
                         return new Country
                         {
+                            Title = reader["Title"] as string,
+                        };
+                    }
+                    return null;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+        }
+
+        public Country GetByTitle(string title)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var command = connection.CreateCommand();
+
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "dbo.GetCountryByTitle";
+
+                SqlParameter parameterTitle = new SqlParameter
+                {
+                    DbType = DbType.String,
+                    ParameterName = "@Title",
+                    Value = title,
+                    Direction = ParameterDirection.Input
+                };
+                command.Parameters.Add(parameterTitle);
+
+                try
+                {
+                    connection.Open();
+
+                    var reader = command.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        return new Country
+                        {
+                            Id = (int)reader["Id"],
                             Title = reader["Title"] as string,
                         };
                     }

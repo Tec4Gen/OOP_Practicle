@@ -24,6 +24,11 @@ namespace SSU.Coins.BLL
             return _materialLogic.GetById(id);
         }
 
+        public Material GetByTitle(string title)
+        {
+            return _materialLogic.GetByTitle(title);
+        }
+
         public void RemoveById(int id, ICollection<Error> errorList)
         {
             _materialLogic.RemoveById(id);

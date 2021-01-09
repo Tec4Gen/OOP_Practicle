@@ -4,13 +4,19 @@
 }
 
 
-.form-signin, .form-signup {
+.form-signin, .form-signup, .form-add-coin {
+    position: relative !important;
     width: 100%;
     max-width: 420px;
     padding: 15px;
     margin: 0 auto;
 }
-
+.form-add-coin {
+    max-width: 550px!important;
+}
+.container-add-coin {
+    margin-bottom: 20px!important;
+}
 .form-label-group {
     position: relative;
     margin-bottom: 1rem;

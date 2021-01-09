@@ -54,7 +54,6 @@ CREATE TABLE dbo.[Coin]
 	Title NVARCHAR(50) NOT NULL,
 	[Date] DATETIME NOT NULL,
 	Price INT NULL,
-	Anniversary NVARCHAR(50) NOT NULL,
 	[Description] NVARCHAR(500) NOT NULL,
 	IdCountry INT NOT NULL,
 	IdMaterial INT NOT NULL,
@@ -77,14 +76,14 @@ CREATE TABLE dbo.[Material]
 GO
 ALTER TABLE Coin
 	ADD CONSTRAINT FK_CoinCountry_Country_ID FOREIGN KEY (IdCountry)
-		REFERENCES Country(Id)
+		REFERENCES [Country](Id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
 GO
 
 ALTER TABLE Coin
 	ADD CONSTRAINT FK_CoinMaterial_Material_ID FOREIGN KEY (IdMaterial)
-		REFERENCES Material(Id)
+		REFERENCES [Material](Id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
 GO
@@ -137,16 +136,7 @@ GO
 --///////////////////////////////////////////////
 --          StorageProcedure User
 --///////////////////////////////////////////////
-CREATE PROCEDURE [dbo].[CheckUser]
-	@Login NVARCHAR(50),
-	@HashPassword VARBINARY(MAX)
-AS	
-BEGIN
-	SELECT Id
-	FROM [User]
-	WHERE  @Login = [Login] AND @HashPassword = HashPassword;
-END
-GO
+
 
 CREATE PROCEDURE [dbo].[GetUserById]
 	@Id INT
@@ -158,7 +148,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [dbo].[GetUserByIdLogin]
+CREATE PROCEDURE [dbo].[GetUserByLogin]
 	@Login NVARCHAR(50)
 AS
 BEGIN
@@ -234,7 +224,7 @@ CREATE PROCEDURE [dbo].[GetCoinById]
 	@Id INT
 AS
 BEGIN
-     SELECT	Title,[Date],Price,Anniversary,[Description],IdCountry, IdMaterial, Picture
+     SELECT	Id,Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture
 	 FROM Coin
      WHERE (@Id = Id )
 END
@@ -244,7 +234,7 @@ CREATE PROCEDURE [dbo].[GetCoinByCountry]
 	@IdCountry INT
 AS
 BEGIN
-     SELECT	Title,[Date],Price,Anniversary,[Description],IdCountry, IdMaterial, Picture
+     SELECT	Id,Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture
 	 FROM Coin
      WHERE (@IdCountry = IdCountry )
 END
@@ -254,7 +244,7 @@ CREATE PROCEDURE [dbo].[GetCoinByMaterial]
 	@IdMaterial INT
 AS
 BEGIN
-     SELECT	Title,[Date],Price,Anniversary,[Description],IdCountry, IdMaterial, Picture
+     SELECT	Id,Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture
 	 FROM Coin
      WHERE (@IdMaterial = IdMaterial )
 END
@@ -264,9 +254,19 @@ CREATE PROCEDURE [dbo].[GetCoinByPrice]
 	@Price INT
 AS
 BEGIN
-     SELECT	Title,[Date],Price,Anniversary,[Description],IdCountry, IdMaterial, Picture
+     SELECT	Id,Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture
 	 FROM Coin
      WHERE (@Price = Price )
+END
+GO
+
+CREATE PROCEDURE [dbo].[GetCoinByDate]
+	@Date DATETIME
+AS
+BEGIN
+     SELECT	Id,Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture
+	 FROM Coin
+     WHERE ([Date] = @Date )
 END
 GO
 
@@ -274,25 +274,35 @@ CREATE PROCEDURE [dbo].[GetCoinByTitle]
 	@Title NVARCHAR(150)
 AS
 BEGIN
-     SELECT	Title,[Date],Price,Anniversary,[Description],IdCountry, IdMaterial, Picture
+     SELECT	Id,Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture
 	 FROM Coin
      WHERE Title LIKE '%'+@Title+'%'
+END
+GO
+
+CREATE PROCEDURE [dbo].[GetCoinByTitle]
+	@Title NVARCHAR(150),
+	@IdCountry INT
+AS
+BEGIN
+     SELECT	Id,Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture
+	 FROM Coin
+     WHERE Title LIKE '%'+@Title+'%' AND @IdCountry = IdCountry
 END
 GO
 
 CREATE PROCEDURE [dbo].[InsertCoin]
     @Title NVARCHAR(50),
 	@Date DATETIME,
-	@Price INT,
-	@Anniversary NVARCHAR(50),
+	@Price INT = NULL,
 	@Description NVARCHAR(500),
 	@IdCountry INT,
 	@IdMaterial INT,
 	@Picture VARBINARY(MAX) = NULL
 AS
 BEGIN	
-	INSERT INTO Coin(Title,[Date],Price,Anniversary,[Description],IdCountry, IdMaterial, Picture)
-	VALUES (@Title,@Date,@Price,@Anniversary,@Description,@IdCountry, @IdMaterial, @Picture)
+	INSERT INTO Coin(Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture)
+	VALUES (@Title,@Date,@Price,@Description,@IdCountry, @IdMaterial, @Picture)
 END
 GO
 
@@ -310,14 +320,13 @@ CREATE PROCEDURE [dbo].[UpdateCoin]
 	@Title NVARCHAR(50),
 	@Date DATETIME,
 	@Price INT,
-	@Anniversary NVARCHAR(50),
 	@Description NVARCHAR(500),
 	@IdCountry INT,
 	@IdMaterial INT,
 	@Picture VARBINARY(MAX) = NULL
 AS
 BEGIN
-	UPDATE Coin SET Title = @Title,[Date] = @Date, Price = @Price, Anniversary = @Anniversary,
+	UPDATE Coin SET Title = @Title,[Date] = @Date, Price = @Price,
 		 IdCountry = @IdCountry, IdMaterial = @IdMaterial, Picture = @Picture
 
 	FROM Coin
@@ -328,7 +337,7 @@ GO
 CREATE PROCEDURE [dbo].[GetAllCoins]
 AS
 BEGIN
-     SELECT Title,[Date],Price,Anniversary,[Description],IdCountry, IdMaterial, Picture
+     SELECT Id,Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture
 	 FROM Coin 
 END
 GO
@@ -344,6 +353,16 @@ BEGIN
      SELECT	Id,	Title
 	 FROM Country
      WHERE (@Id = Id )
+END
+GO
+
+CREATE PROCEDURE [dbo].[GetCountryByTitle]
+	@Title NVARCHAR(50)
+AS
+BEGIN
+     SELECT	Id,	Title
+	 FROM Country
+     WHERE (@Title = Title )
 END
 GO
 
@@ -401,6 +420,16 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE [dbo].[GetMaterialByTitle]
+	@Title NVARCHAR(50)
+AS
+BEGIN
+     SELECT	Id,	Title
+	 FROM Material
+     WHERE (@Title = Title )
+END
+GO
+
 CREATE PROCEDURE [dbo].[InsertMaterial]
     @Title NVARCHAR(150)
 	
@@ -438,5 +467,29 @@ AS
 BEGIN
      SELECT Id, Title
 	 FROM Material 
+END
+GO
+
+--///////////////////////////////////////////////
+--          StorageProcedure AUTH
+--///////////////////////////////////////////////
+CREATE PROCEDURE [dbo].[CanLogin]
+	@Login NVARCHAR(50),
+	@HashPassword VARBINARY(MAX)
+AS	
+BEGIN
+	SELECT Id
+	FROM [User]
+	WHERE  @Login = [Login] AND @HashPassword = HashPassword;
+END
+GO
+
+CREATE PROCEDURE [dbo].[IsExistsLogin]
+	@Login NVARCHAR(50)
+AS	
+BEGIN
+	SELECT Id
+	FROM [User]
+	WHERE  @Login = [Login];
 END
 GO

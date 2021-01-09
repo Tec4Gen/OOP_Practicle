@@ -6,7 +6,7 @@
     -ms-user-select: none;
     user-select: none;
 }
-.main_autorization, .main_registration {
+.main_autorization, .main_registration,.main_add-coin {
     height: 80% !important;
 }
 @media (min-width: 768px) {
@@ -14,7 +14,8 @@
         font-size: 3.5rem;
     }
 }
-.container-autorization, .container-registration {
+.container-autorization, .container-registration, container-add-coin {
+    position: relative !important;
     width: 100%;
     height: 100%;
     background: #f8f9fa !important;

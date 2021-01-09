@@ -16,7 +16,7 @@ namespace SSU.Coins.DAL
                 var command = connection.CreateCommand();
 
                 command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "dbo.CheckUser";
+                command.CommandText = "dbo.CanLogin";
 
                 SqlParameter parameterUserName = new SqlParameter
                 {
@@ -35,14 +35,51 @@ namespace SSU.Coins.DAL
                     Direction = ParameterDirection.Input
                 };
                 command.Parameters.Add(parameterHashPassword);
-                int result;
+                int? result;
                 try
                 {
                     connection.Open();
 
-                    result = (int)command.ExecuteScalar();
+                    result = (command.ExecuteScalar() as int?) ?? 0;
 
                     Logs.Log.Info("There is such a user");
+                }
+                catch (SqlException ex)
+                {
+                    Logs.Log.Error(ex.Message);
+                    throw;
+                }
+
+                return result > 0 ? true : false;
+            }
+        }
+
+        public bool IsExistsLogin(string login)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var command = connection.CreateCommand();
+
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "dbo.IsExistsLogin";
+
+                SqlParameter parameterUserName = new SqlParameter
+                {
+                    DbType = DbType.String,
+                    ParameterName = "@Login",
+                    Value = login,
+                    Direction = ParameterDirection.Input
+                };
+                command.Parameters.Add(parameterUserName);
+
+                int? result;
+                try
+                {
+                    connection.Open();
+
+                    result = (command.ExecuteScalar() as int?) ?? 0;
+
+                    Logs.Log.Info("There is such a Login");
                 }
                 catch (SqlException ex)
                 {

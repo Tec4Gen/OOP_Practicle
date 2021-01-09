@@ -1,0 +1,47 @@
+﻿@using SSU.Coins.Entities;
+@using SSU.Coins.Ioc;
+@using SSU.Coins.BLL.Interface;
+@using Ninject;
+@{
+    var _materialLogic = DependenciesResolver.Kernel.Get<IMaterialLogic>();
+}
+<section class="jumbotron text-center">
+    <form class="needs-validation" novalidate="" action="~/Pages/CoinsCatalog.cshtml?Country=@Page.Country" method="post">
+        <div class="container d-flex justify-content-center">
+            <div class="col-6">
+                <label for="title" class="form-label">Название монеты</label>
+                <input name="title" type="text" class="form-control" id="inputTitle" placeholder="Введите название" required="">
+                <div class="invalid-feedback">
+                    Please enter your shipping address.
+                </div>
+            </div>
+            <br />
+        </div>
+
+        <br />
+        <div class="container d-flex justify-content-center">
+            <div class="form-group col-md-3">
+                <label for="inputState">Материал</label>
+                <select name="material" id="inputMaterial" class="form-control">
+                    <option value="" selected>Выберите материал</option>
+                    @foreach (var item in _materialLogic.GetAll())
+                    {
+                        <option>@item.Title</option>
+                    }
+                </select>
+            </div>
+            <br />
+            <div class="col-3">
+                <label for="inputState">Год</label>
+                <input name="year" type="text" class="form-control" id="inputYear" placeholder="Пример: 1917" required="">
+                <div class="invalid-feedback">
+                    Zip code required.
+                </div>
+            </div>
+        </div>
+        <br />
+        <button class="w-100 btn btn-primary btn-lg col-2" type="submit">Найти</button>
+    </form>
+</section>
+
+

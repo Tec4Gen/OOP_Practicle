@@ -8,6 +8,7 @@ namespace SSU.Coins.BLL.Interface
         Material GetById(int id);
 
         IEnumerable<Material> GetAll();
+        Material GetByTitle(string title);
 
         void RemoveById(int id, ICollection<Error> errorList);
 

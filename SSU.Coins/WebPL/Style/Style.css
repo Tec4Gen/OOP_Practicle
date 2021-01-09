@@ -7,6 +7,9 @@ html {
     width: 100%!important;
     height: 100%!important;
 }
+a {
+    text-decoration: none!important;
+}
 .bd-placeholder-img {
     font-size: 1.125rem;
     text-anchor: middle;
@@ -20,4 +23,62 @@ html {
     .bd-placeholder-img-lg {
         font-size: 3.5rem;
     }
+}
+/*message*/
+.error {
+    border: solid 2px red;
+}
+.text-error {
+    font-size: 12px;
+    color:red;
+}
+
+.featurette-heading {
+    font-size:30px!important;
+}
+.picCountry {
+    min-height:255px;
+    max-width:100%!important;
+}
+.picCoin {
+    max-width: 100%;
+    max-height: 100%;
+}
+.countryText {
+    font-size: 25px !important;
+}
+/*form add coin*/
+.limitation-textarea {
+    max-width:100%!important;
+    max-height:150px!important;
+}
+/*description coin*/
+.text-coin {
+    max-width: 300px;
+}
+.head-text-coin {
+    max-width: 500px;
+    max-height: 200px;
+    color:black;
+}
+.overflow-multiply {
+    max-width: 540px !important;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-height: 20px;
+    max-height: 60px;
+    overflow: hidden;
+}
+.overflow-single {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/*PageCoin*/
+.description {
+    max-width: 95%!important;
+    word-break: break-all;
+    margin-top:15px;
 }

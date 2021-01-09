@@ -1,0 +1,14 @@
+﻿.alert {
+    position: absolute;
+    width: 92.5% !important;
+    top: -35px;
+    display:none;
+}
+.alert-coin {
+    width: 100% !important;
+    position: relative;
+    top: 30px!important;
+}
+.show {
+    display: block !important;
+}

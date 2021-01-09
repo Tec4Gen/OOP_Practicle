@@ -7,6 +7,8 @@ namespace SSU.Coins.DAL.Interface
     {
         Country GetById(int id);
 
+        Country GetByTitle(string title);
+
         IEnumerable<Country> GetAll();
 
         void RemoveById(int id);

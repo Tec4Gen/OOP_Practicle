@@ -19,7 +19,7 @@ namespace SSU.Coins.DAL
                 var command = connection.CreateCommand();
 
                 command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "dbo.InsertMaterial";
+                command.CommandText = "dbo.GetAllMaterial";
 
                 SqlDataReader reader;
 
@@ -46,8 +46,7 @@ namespace SSU.Coins.DAL
 
             }
         }
-    
-
+   
         public Material GetById(int id)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -87,7 +86,47 @@ namespace SSU.Coins.DAL
                 }
             }
         }
-    
+
+        public Material GetByTitle(string title)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var command = connection.CreateCommand();
+
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "dbo.GetMaterialByTitle";
+
+                SqlParameter parameterTitle = new SqlParameter
+                {
+                    DbType = DbType.String,
+                    ParameterName = "@Title",
+                    Value = title,
+                    Direction = ParameterDirection.Input
+                };
+                command.Parameters.Add(parameterTitle);
+
+                try
+                {
+                    connection.Open();
+
+                    var reader = command.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        return new Material
+                        {
+                            Id = (int)reader["Id"],
+                            Title = reader["Title"] as string,
+                        };
+                    }
+                    return null;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+        }
 
         public void RemoveById(int id)
         {

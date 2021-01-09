@@ -1,0 +1,22 @@
+﻿@using SSU.Coins.Ioc;
+@using SSU.Coins.BLL.Interface;
+@using Ninject;
+@{
+    
+    if (IsPost)
+    {
+        if (!Request["login"].IsEmpty() && !Request["password"].IsEmpty())
+        {
+            var login = Request["login"];
+            var password = Request["password"];
+
+            var authLogic = DependenciesResolver.Kernel.Get<IAuthLogic>();
+
+            System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
+            byte[] bytePassword = encoding.GetBytes(password);
+
+            FormsAuthentication.SetAuthCookie(login, createPersistentCookie: true);
+            Response.Redirect($"~/Pages/Index.cshtml");
+        }
+    }
+}

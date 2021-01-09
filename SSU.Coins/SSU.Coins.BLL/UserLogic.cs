@@ -53,11 +53,6 @@ namespace SSU.Coins.BLL
 
         }
 
-        public bool Auth(User user)
-        {
-            return _userDao.Auth(user); ;
-        }
-
         public IEnumerable<User> GetAll()
         {
             return _userDao.GetAll();
