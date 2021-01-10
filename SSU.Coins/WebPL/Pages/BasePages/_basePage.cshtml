@@ -54,13 +54,15 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="my-2 my-md-0 mr-md-3">
+
+                    <a class="btn btn-outline-info" href="~/Pages/Trainings.cshtml">Обучение</a>
                     @if (User.Identity.IsAuthenticated)
                     {
                         if (User.IsInRole("Admin"))
                         {
                             <a class="btn btn-outline-danger" href="~/Pages/AddCoin.cshtml">Добавить монету</a>
                         }
-                        <a class="btn btn-outline-info" href="~/Pages/Trainings.cshtml">Обучение</a>
+
                         <a class="btn btn-outline-primary" href="~/Pages/SignOut.cshtml">Sing out</a>
                     }
                     else
