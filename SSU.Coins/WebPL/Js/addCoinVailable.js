@@ -50,5 +50,6 @@
             e.preventDefault();
             return;
         }
+
     });
 });

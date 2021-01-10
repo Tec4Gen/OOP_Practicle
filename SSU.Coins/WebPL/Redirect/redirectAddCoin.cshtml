@@ -4,6 +4,7 @@
 @using Ninject;
 @using System;
 @using System.Threading;
+@using Newtonsoft.Json;;
 @{
 
     if (IsPost)
@@ -25,8 +26,7 @@
 
             var idMaterial = materialLogic.GetByTitle(Request["material"]).Id;
             var idCountry = countryLogic.GetByTitle(Request["country"]).Id;
-            var description = Request["description"];
-
+            var description = JsonConvert.SerializeObject(Request["description"]);
             int? price = null;
 
             if (!Request["price"].IsEmpty())

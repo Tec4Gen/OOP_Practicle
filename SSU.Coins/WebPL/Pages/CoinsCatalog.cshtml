@@ -2,6 +2,7 @@
 @using SSU.Coins.Ioc;
 @using SSU.Coins.BLL.Interface;
 @using Ninject;
+@using Newtonsoft.Json;
 @{
     Layout = "BasePages/_basePage.cshtml";
     Page.Section = "CoinsCatalog";
@@ -66,7 +67,7 @@
                     {
                         if (int.TryParse(Request["year"], out int year))
                         {
-                            filterCoins = filterCoins.Where(p => p.Date.Year == year).Select(p=> p);
+                            filterCoins = filterCoins.Where(p => p.Date.Year == year).Select(p => p);
                         }
                     }
                 }
@@ -112,8 +113,8 @@
                                 <p class="lead text-coin overflow-single">Страна: @_logicCountry.GetById(@item.IdCountry).Title</p>
                                 <p class="lead text-coin overflow-single">Материал: @_logicMaterial.GetById(@item.IdMaterial).Title </p>
                                 <p class="lead text-coin overflow-single">Стоимость: @item.Price</p>
-                                <p class="lead text-coin overflow-multiply">Описание: @item.Description</p>
-                            </div>
+                                <p class="lead text-coin overflow-multiply">Описание: @( new HtmlString((JsonConvert.DeserializeObject(@item.Description) as string).Replace("\r\n", "</br>"))))</p>
+</div>
                             <div class="col-md-5">
                                 @if (item.Picture != null)
                                 {

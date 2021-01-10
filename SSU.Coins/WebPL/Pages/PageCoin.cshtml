@@ -2,6 +2,7 @@
 @using SSU.Coins.Ioc;
 @using SSU.Coins.BLL.Interface;
 @using Ninject;
+@using Newtonsoft.Json;
 @{
     Layout = "BasePages/_basePage.cshtml";
     Page.Section = "CoinsCatalog";
@@ -39,7 +40,7 @@
     <main role="main">
         <div class="album py-5 bg-light">
             <div class="container">
-                <div class="row d-flex d-flex justify-content-between mt-3"> 
+                <div class="row d-flex d-flex justify-content-between mt-3">
                     <div class="row featurette">
                         <div class="col-md-5">
                             @if (coin.Picture != null)
@@ -61,11 +62,11 @@
                         </div>
                         <br />
                         <div class="col-xs-12 col-md-12">
-                            <p class="lead description"> Описание: @coin.Description</p>
+                            <p class="lead description"> Описание: @(new HtmlString((JsonConvert.DeserializeObject(coin.Description) as string).Replace("\r\n", "</br>"))))</p>
                         </div>
                         <br />
                     </div>
-                    </div>
+                </div>
             </div>
         </div>
     </main>

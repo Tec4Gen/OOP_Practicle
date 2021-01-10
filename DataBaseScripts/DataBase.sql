@@ -51,10 +51,10 @@ GO
 CREATE TABLE dbo.[Coin]
 	(
 	Id INT PRIMARY KEY IDENTITY(1,1),
-	Title NVARCHAR(50) NOT NULL,
+	Title NVARCHAR(150) NOT NULL,
 	[Date] DATETIME NOT NULL,
 	Price INT NULL,
-	[Description] NVARCHAR(500) NOT NULL,
+	[Description] NVARCHAR(MAX) NOT NULL,
 	IdCountry INT NOT NULL,
 	IdMaterial INT NOT NULL,
 	Picture VARBINARY(MAX) NULL 
@@ -292,10 +292,10 @@ END
 GO
 
 CREATE PROCEDURE [dbo].[InsertCoin]
-    @Title NVARCHAR(50),
+    @Title NVARCHAR(150),
 	@Date DATETIME,
 	@Price INT = NULL,
-	@Description NVARCHAR(500),
+	@Description NVARCHAR(MAX),
 	@IdCountry INT,
 	@IdMaterial INT,
 	@Picture VARBINARY(MAX) = NULL
@@ -317,10 +317,10 @@ GO
 
 CREATE PROCEDURE [dbo].[UpdateCoin]
     @Id INT,
-	@Title NVARCHAR(50),
+	@Title NVARCHAR(150),
 	@Date DATETIME,
 	@Price INT,
-	@Description NVARCHAR(500),
+	@Description NVARCHAR(MAX),
 	@IdCountry INT,
 	@IdMaterial INT,
 	@Picture VARBINARY(MAX) = NULL
