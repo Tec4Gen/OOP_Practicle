@@ -280,7 +280,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [dbo].[GetCoinByTitle]
+CREATE PROCEDURE [dbo].[GetCoinByTitleAndCountry]
 	@Title NVARCHAR(150),
 	@IdCountry INT
 AS
