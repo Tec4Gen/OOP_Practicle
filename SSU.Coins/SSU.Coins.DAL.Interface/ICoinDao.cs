@@ -27,6 +27,8 @@ namespace SSU.Coins.DAL.Interface
 
         IEnumerable<Coin> GetByDate(int id);
 
-        
+        IEnumerable<Coin> GetByUser(int userId);
+
+        IEnumerable<Coin> GetBySelling(bool isSelling);
     }
 }

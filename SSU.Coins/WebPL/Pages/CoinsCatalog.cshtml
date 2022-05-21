@@ -39,9 +39,15 @@
                 break;
         }
 
-        var idCountry = _logicCountry.GetByTitle(country).Id;
-        filterCoins = _logicCoin.GetByCountry(idCountry);
+        var Country = _logicCountry.GetByTitle(country);
+        int idCountry = 0;
 
+        if (Country != null)
+        {
+            idCountry = Country.Id;
+
+            filterCoins = _logicCoin.GetByCountry(Country.Id);
+        }
 
         if (IsPost)
         {

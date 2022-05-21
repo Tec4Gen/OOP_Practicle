@@ -57,8 +57,17 @@ CREATE TABLE dbo.[Coin]
 	[Description] NVARCHAR(MAX) NOT NULL,
 	IdCountry INT NOT NULL,
 	IdMaterial INT NOT NULL,
-	Picture VARBINARY(MAX) NULL 
+	IdUser INT NULL,
+	Picture VARBINARY(MAX) NULL,
+	IsSalling BIT NULL
 	)
+GO
+
+ALTER TABLE [Coin]
+	ADD CONSTRAINT FK_Coin_User_Id FOREIGN KEY (IdUser)
+		REFERENCES [User](Id)
+	ON UPDATE CASCADE
+	ON DELETE SET NULL
 GO
 
 CREATE TABLE dbo.[Country]
@@ -224,17 +233,18 @@ CREATE PROCEDURE [dbo].[GetCoinById]
 	@Id INT
 AS
 BEGIN
-     SELECT	Id,Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture
+     SELECT	Id,Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture, IdUser, IsSalling
 	 FROM Coin
      WHERE (@Id = Id )
 END
 GO
 
+
 CREATE PROCEDURE [dbo].[GetCoinByCountry]
 	@IdCountry INT
 AS
 BEGIN
-     SELECT	Id,Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture
+     SELECT	Id,Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture, IdUser, IsSalling
 	 FROM Coin
      WHERE (@IdCountry = IdCountry )
 END
@@ -244,9 +254,29 @@ CREATE PROCEDURE [dbo].[GetCoinByMaterial]
 	@IdMaterial INT
 AS
 BEGIN
-     SELECT	Id,Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture
+     SELECT	Id,Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture, IdUser, IsSalling
 	 FROM Coin
      WHERE (@IdMaterial = IdMaterial )
+END
+GO
+
+CREATE PROCEDURE [dbo].[GetCoinByUser]
+	@IdUser INT
+AS
+BEGIN
+     SELECT	Id,Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture, IdUser, IsSalling
+	 FROM Coin
+     WHERE (@IdUser = IdUser)
+END
+GO
+
+CREATE PROCEDURE [dbo].[GetCoinBySalling]
+	@IsSalling INT
+AS
+BEGIN
+     SELECT	Id,Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture, IdUser, IsSalling
+	 FROM Coin
+     WHERE (@IsSalling = IsSalling )
 END
 GO
 
@@ -254,7 +284,7 @@ CREATE PROCEDURE [dbo].[GetCoinByPrice]
 	@Price INT
 AS
 BEGIN
-     SELECT	Id,Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture
+     SELECT	Id,Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture, IdUser, IsSalling
 	 FROM Coin
      WHERE (@Price = Price )
 END
@@ -264,7 +294,7 @@ CREATE PROCEDURE [dbo].[GetCoinByDate]
 	@Date DATETIME
 AS
 BEGIN
-     SELECT	Id,Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture
+     SELECT	Id,Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture, IdUser, IsSalling
 	 FROM Coin
      WHERE ([Date] = @Date )
 END
@@ -274,7 +304,7 @@ CREATE PROCEDURE [dbo].[GetCoinByTitle]
 	@Title NVARCHAR(150)
 AS
 BEGIN
-     SELECT	Id,Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture
+	 SELECT	Id,Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture, IdUser, IsSalling
 	 FROM Coin
      WHERE Title LIKE '%'+@Title+'%'
 END
@@ -285,7 +315,7 @@ CREATE PROCEDURE [dbo].[GetCoinByTitleAndCountry]
 	@IdCountry INT
 AS
 BEGIN
-     SELECT	Id,Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture
+     SELECT	Id,Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture, IdUser, IsSalling
 	 FROM Coin
      WHERE Title LIKE '%'+@Title+'%' AND @IdCountry = IdCountry
 END
@@ -298,11 +328,13 @@ CREATE PROCEDURE [dbo].[InsertCoin]
 	@Description NVARCHAR(MAX),
 	@IdCountry INT,
 	@IdMaterial INT,
-	@Picture VARBINARY(MAX) = NULL
+	@Picture VARBINARY(MAX) = NULL,
+	@IdUser INT NULL,
+	@IsSalling  BIT NULL
 AS
 BEGIN	
-	INSERT INTO Coin(Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture)
-	VALUES (@Title,@Date,@Price,@Description,@IdCountry, @IdMaterial, @Picture)
+	INSERT INTO Coin(Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture, IdUser, IsSalling)
+	VALUES (@Title,@Date,@Price,@Description,@IdCountry, @IdMaterial, @Picture, @IdUser, @IsSalling)
 END
 GO
 
@@ -323,11 +355,13 @@ CREATE PROCEDURE [dbo].[UpdateCoin]
 	@Description NVARCHAR(MAX),
 	@IdCountry INT,
 	@IdMaterial INT,
-	@Picture VARBINARY(MAX) = NULL
+	@Picture VARBINARY(MAX) = NULL,
+	@IdUser INT NULL,
+	@IsSalling  BIT NULL
 AS
 BEGIN
 	UPDATE Coin SET Title = @Title,[Date] = @Date, Price = @Price,
-		 IdCountry = @IdCountry, IdMaterial = @IdMaterial, Picture = @Picture
+		 IdCountry = @IdCountry, IdMaterial = @IdMaterial, Picture = @Picture, IdUser= @IdUser, IsSalling =  @IsSalling
 
 	FROM Coin
 	WHERE (@Id = Id)
@@ -337,7 +371,7 @@ GO
 CREATE PROCEDURE [dbo].[GetAllCoins]
 AS
 BEGIN
-     SELECT Id,Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture
+     SELECT Id,Title,[Date],Price,[Description],IdCountry, IdMaterial, Picture,IdUser, IsSalling
 	 FROM Coin 
 END
 GO

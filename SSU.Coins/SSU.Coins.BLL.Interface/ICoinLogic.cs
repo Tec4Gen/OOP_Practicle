@@ -25,5 +25,9 @@ namespace SSU.Coins.BLL.Interface
         IEnumerable<Coin> GetByCountry(int id);
 
         IEnumerable<Coin> GetByDate(int id);
+
+        IEnumerable<Coin> GetByUser(int userId);
+
+        IEnumerable<Coin> GetBySelling(bool isSelling);
     }
 }

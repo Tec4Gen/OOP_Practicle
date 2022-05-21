@@ -88,6 +88,24 @@ namespace SSU.Coins.DAL
                 };
                 command.Parameters.Add(parameterPicture);
 
+                SqlParameter parameterUser = new SqlParameter
+                {
+                    DbType = DbType.Int32,
+                    ParameterName = "@IdUser",
+                    Value = coin.IdUser,
+                    Direction = ParameterDirection.Input
+                };
+                command.Parameters.Add(parameterUser);
+
+                SqlParameter parameterIsSalling = new SqlParameter
+                {
+                    DbType = DbType.Boolean,
+                    ParameterName = "@IsSalling",
+                    Value = coin.IsSalling,
+                    Direction = ParameterDirection.Input
+                };
+                command.Parameters.Add(parameterIsSalling);
+
                 try
                 {
                     connection.Open();
@@ -142,7 +160,9 @@ namespace SSU.Coins.DAL
                         Description = reader["Description"] as string,
                         IdCountry = (int)reader["IdCountry"],
                         IdMaterial = (int)reader["IdMaterial"],
-                        Picture = reader["Picture"] as byte[]
+                        Picture = reader["Picture"] as byte[],
+                        IdUser = (int)reader["IdUser"],
+                        IsSalling = (bool)reader["IsSalling"]
                     };
                 }
                 yield break;
@@ -194,7 +214,9 @@ namespace SSU.Coins.DAL
                         Description = reader["Description"] as string,
                         IdCountry = (int)reader["IdCountry"],
                         IdMaterial = (int)reader["IdMaterial"],
-                        Picture = reader["Picture"] as byte[]
+                        Picture = reader["Picture"] as byte[],
+                        IdUser = (int)reader["IdUser"],
+                        IsSalling = (bool)reader["IsSalling"]
                     };
                 }
 
@@ -245,7 +267,9 @@ namespace SSU.Coins.DAL
                         Description = reader["Description"] as string,
                         IdCountry = (int)reader["IdCountry"],
                         IdMaterial = (int)reader["IdMaterial"],
-                        Picture = reader["Picture"] as byte[]
+                        Picture = reader["Picture"] as byte[],
+                        IdUser = (int)reader["IdUser"],
+                        IsSalling = (bool)reader["IsSalling"]
                     };
                 }
 
@@ -288,7 +312,9 @@ namespace SSU.Coins.DAL
                             Description = reader["Description"] as string,
                             IdCountry = (int)reader["IdCountry"],
                             IdMaterial = (int)reader["IdMaterial"],
-                            Picture = reader["Picture"] as byte[]
+                            Picture = reader["Picture"] as byte[],
+                            IdUser = (int)reader["IdUser"],
+                            IsSalling = (bool)reader["IsSalling"]
                         };
                     }
                     Logs.Log.Info("Coin received");
@@ -345,7 +371,117 @@ namespace SSU.Coins.DAL
                         Description = reader["Description"] as string,
                         IdCountry = (int)reader["IdCountry"],
                         IdMaterial = (int)reader["IdMaterial"],
-                        Picture = reader["Picture"] as byte[]
+                        Picture = reader["Picture"] as byte[],
+                        IdUser = (int)reader["IdUser"],
+                        IsSalling = (bool)reader["IsSalling"]
+                    };
+                }
+
+                yield break;
+            }
+        }
+
+        public IEnumerable<Coin> GetByUser(int userId)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var command = connection.CreateCommand();
+
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "dbo.GetCoinByUser";
+
+                SqlParameter parameterId = new SqlParameter
+                {
+                    DbType = DbType.Int32,
+                    ParameterName = "@IdUser",
+                    Value = userId,
+                    Direction = ParameterDirection.Input
+                };
+                command.Parameters.Add(parameterId);
+
+                SqlDataReader reader;
+
+                try
+                {
+                    connection.Open();
+
+                    reader = command.ExecuteReader();
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+
+                while (reader.Read())
+                {
+                    yield return new Coin
+                    {
+                        Id = (int)reader["Id"],
+                        Title = reader["Title"] as string,
+                        Date = (DateTime)reader["Date"],
+                        Price = reader["Price"] as int?,
+                        Description = reader["Description"] as string,
+                        IdCountry = (int)reader["IdCountry"],
+                        IdMaterial = (int)reader["IdMaterial"],
+                        Picture = reader["Picture"] as byte[],
+                        IdUser = (int)reader["IdUser"],
+                        IsSalling = (bool)reader["IsSalling"]
+                    };
+                }
+
+                yield break;
+            }
+        }
+
+        public IEnumerable<Coin> GetBySelling(bool isSelling)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var command = connection.CreateCommand();
+
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "dbo.GetCoinBySalling";
+
+                SqlParameter parameterId = new SqlParameter
+                {
+                    DbType = DbType.Boolean,
+                    ParameterName = "@IsSalling",
+                    Value = isSelling,
+                    Direction = ParameterDirection.Input
+                };
+                command.Parameters.Add(parameterId);
+
+                SqlDataReader reader;
+
+                try
+                {
+                    connection.Open();
+
+                    reader = command.ExecuteReader();
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+
+                while (reader.Read())
+                {
+                    yield return new Coin
+                    {
+                        Id = (int)reader["Id"],
+                        Title = reader["Title"] as string,
+                        Date = (DateTime)reader["Date"],
+                        Price = reader["Price"] as int?,
+                        Description = reader["Description"] as string,
+                        IdCountry = (int)reader["IdCountry"],
+                        IdMaterial = (int)reader["IdMaterial"],
+                        Picture = reader["Picture"] as byte[],
+                        IdUser = (int)reader["IdUser"],
+                        IsSalling = (bool)reader["IsSalling"]
                     };
                 }
 
@@ -397,7 +533,9 @@ namespace SSU.Coins.DAL
                         Description = reader["Description"] as string,
                         IdCountry = (int)reader["IdCountry"],
                         IdMaterial = (int)reader["IdMaterial"],
-                        Picture = reader["Picture"] as byte[]
+                        Picture = reader["Picture"] as byte[],
+                        IdUser = (int)reader["IdUser"],
+                        IsSalling = (bool)reader["IsSalling"]
                     };
                 }
 
@@ -450,7 +588,9 @@ namespace SSU.Coins.DAL
                         Description = reader["Description"] as string,
                         IdCountry = (int)reader["IdCountry"],
                         IdMaterial = (int)reader["IdMaterial"],
-                        Picture = reader["Picture"] as byte[]
+                        Picture = reader["Picture"] as byte[],
+                        IdUser = (int)reader["IdUser"],
+                        IsSalling = (bool)reader["IsSalling"]
                     };
                 }
 
@@ -511,7 +651,9 @@ namespace SSU.Coins.DAL
                         Description = reader["Description"] as string,
                         IdCountry = (int)reader["IdCountry"],
                         IdMaterial = (int)reader["IdMaterial"],
-                        Picture = reader["Picture"] as byte[]
+                        Picture = reader["Picture"] as byte[],
+                        IdUser = (int)reader["IdUser"],
+                        IsSalling = (bool)reader["IsSalling"]
                     };
                 }
 
@@ -659,6 +801,5 @@ namespace SSU.Coins.DAL
                 }
             }
         }
-
     }
 }

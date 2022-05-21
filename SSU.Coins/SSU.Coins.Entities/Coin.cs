@@ -12,16 +12,16 @@ namespace SSU.Coins.Entities
 
         public int? Price { get; set; }
 
-        //TODO
-        //public string Anniversary { get; set; }
-
         public string Description { get; set; }
 
         public int IdCountry { get; set; }
 
         public int IdMaterial { get; set; }
 
+        public int IdUser { get; set; }
+
         public byte[] Picture { get; set; }
 
+        public bool IsSalling { get; set; }
     }
 }

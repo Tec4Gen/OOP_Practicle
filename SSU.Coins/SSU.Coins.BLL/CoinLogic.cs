@@ -43,6 +43,16 @@ namespace SSU.Coins.BLL
             return _coinLogic.GetByDate(id);
         }
 
+        public IEnumerable<Coin> GetByUser(int userId)
+        {
+            return _coinLogic.GetByUser(userId);
+        }
+
+        public IEnumerable<Coin> GetBySelling(bool isSelling)
+        {
+            return _coinLogic.GetBySelling(isSelling);
+        }
+
         public Coin GetById(int id)
         {
             return _coinLogic.GetById(id);
